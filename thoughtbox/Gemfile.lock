@@ -128,6 +128,8 @@ GEM
     rake (10.4.2)
     rdoc (4.2.1)
       json (~> 1.4)
+    responders (2.1.1)
+      railties (>= 4.2.0, < 5.1)
     rubyzip (1.1.7)
     sass (3.4.20)
     sass-rails (5.0.4)
@@ -192,6 +194,7 @@ DEPENDENCIES
   pg
   pry
   rails (= 4.2.4)
+  responders
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
