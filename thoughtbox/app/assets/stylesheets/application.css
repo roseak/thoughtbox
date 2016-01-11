@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+ .read-true {
+   text-decoration: line-through;
+ }

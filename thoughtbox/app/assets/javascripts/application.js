@@ -30,15 +30,56 @@ function getLinks(){
 
 function renderLinks(link) {
   $('#link-listing').prepend(
-    "<li data-id='" + link.id + "'>"
-    + "<h5 contenteditable='true' class='title-editable'>" + link.title + "</h5>"
+    "<li class='read-" + link.read  + "' data-id='" + link.id + "'>"
+    + "<h5 contenteditable='true' class='title-editable read-" + link.read + "'>" + link.title + "</h5>"
     + "<h6 contenteditable='true' class='url-editable'>" + link.url + "</h6>"
     + "<h6>read: " + link.read + "</h6></li>"
+    + "<input class='btn btn-default pull-right' id='read-" + link.read + "-button' type='button' name='submit' value='" + marked(link.read) + "'>"
   )
 
+  readButtons(link)
   editTitle();
   editUrl();
   searched();
+};
+
+function marked(val){
+  if(val === 'true') {
+    return "Mark as Unread";
+  } else {
+    return "Mark as Read";
+  };
+};
+
+function readButtons(link){
+  $('#read-' + link.read + '-button').on('click', function(){
+    var $id = link.id
+    var $original = link.read
+    var $read = opposite(link.read)
+    var $link = link
+    var linkParams = {
+      link: {
+        read: $read
+      }
+    }
+
+    function opposite(read) {
+      if(read === 'true') {
+        return false;
+      } else {
+         return true;
+      };
+    }
+
+    $.ajax({
+      type: 'PUT',
+      url: '/api/v1/links/' + $id + '.json',
+      data: linkParams,
+      success: function(links){
+        getLinks();
+      },
+    });
+  });
 };
 
 function createLink(){
@@ -71,7 +112,7 @@ function editTitle(){
   $('.title-editable').keydown(function(event){
     if(event.keyCode == 13){
       var $title = event.currentTarget.textContent
-      var $idea = $(this).closest('li.link')
+      var $link = $(this).closest('li.link')
       var $id = $(this).closest('li').attr('data-id')
       var linkParams = {
         link: {
