@@ -31,14 +31,23 @@ function getLinks(){
 function renderLinks(link) {
   $('#link-listing').prepend(
     "<li data-id='" + link.id + "'>"
-    + "<h5 contenteditable='true' class='title-editable'>" + link.title + "</h5>"
+    + "<h5 contenteditable='true' class='title-editable read-" + link.read + "'>" + link.title + "</h5>"
     + "<h6 contenteditable='true' class='url-editable'>" + link.url + "</h6>"
     + "<h6>read: " + link.read + "</h6></li>"
+    + "<input class='btn btn-default pull-right' id='read-" + link.read + "-button' type='button' name='submit' value='" + marked(link.read) + "'>"
   )
 
   editTitle();
   editUrl();
   searched();
+};
+
+function marked(val){
+  if(val) {
+    return "Mark as Read";
+  } else {
+    return "Mark as Unread";
+  };
 };
 
 function createLink(){
