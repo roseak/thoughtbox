@@ -1,1 +1,11 @@
+<%= link_to "Logout", '/logout', method: :delete %>
+
 <h1>ThoughtBox</h1>
+<h3>Add a new link here:</h3>
+<%= form_for @link, url: links_path do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :url %>
+  <%= f.text_field :url %>
+  <%= f.submit "Submit" %>
+<% end %>
