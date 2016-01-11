@@ -2,14 +2,12 @@ class Api::V1::LinksController < ApplicationController
   respond_to :json
 
   def index
-    require "pry"
-    binding.pry
     respond_with current_user.links
   end
 
-  def create
-    respond_with current_user.links.create(user_link_params), location: nil
-  end
+  # def create
+  #   respond_with current_user.links.create(user_link_params), location: nil
+  # end
 
 
   def update

@@ -12,31 +12,6 @@
   <% end %>
 </div>
 
-<div class="input-field">
-    <input class="validate" type="text" id="link-title">
-    <label for="link-title">Title</label>
-  </div>
-  <div class="input-field">
-    <input class="validate" type="text" id="link-url">
-    <label for="link-url">Url</label>
-  </div>
-  <input class="btn btn-default pull-right" id="create-link" type="button" name="submit" value="Submit">
-</div>
-
 <div>
   <ul id="link-listing"></ul>
 </div>
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Url</th>
-    <th>Read</th>
-  <tr>
-  <% @links.each do |link| %>
-    <tr>
-      <td class="read-<%= link.read %>"><%= link.title %></td>
-      <td><%= link.url %></td>
-      <td><%= link.read %></td>
-    <tr>
-  <% end %>
-</table>
