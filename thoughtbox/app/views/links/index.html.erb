@@ -9,3 +9,18 @@
   <%= f.text_field :url %>
   <%= f.submit "Submit" %>
 <% end %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Url</th>
+    <th>Read</th>
+  <tr>
+  <% @links.each do |link| %>
+    <tr>
+      <td class="read-<%= link.read %>"><%= link.title %></td>
+      <td><%= link.url %></td>
+      <td><%= link.read %></td>
+    <tr>
+  <% end %>
+</table>
