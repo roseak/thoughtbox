@@ -14,6 +14,6 @@
  *= require_self
  */
 
- .read-t {
+ .read-true {
    text-decoration: line-through;
  }
