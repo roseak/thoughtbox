@@ -15,9 +15,9 @@
 //= require_tree .
 
 $(document).ready(function(){
-  console.log("working")
     getLinks();
-    // createLink();
+    showRead();
+    sorted();
 });
 
 function getLinks(){
@@ -30,7 +30,7 @@ function getLinks(){
 
 function renderLinks(link) {
   $('#link-listing').prepend(
-    "<li class='read-" + link.read  + "' data-id='" + link.id + "'>"
+    "<li class='read-" + link.read  + " link' data-id='" + link.id + "'>"
     + "<h5 contenteditable='true' class='title-editable read-" + link.read + "'>" + link.title + "</h5>"
     + "<h6 contenteditable='true' class='url-editable'>" + link.url + "</h6>"
     + "<h6>read: " + link.read + "</h6></li>"
@@ -41,7 +41,46 @@ function renderLinks(link) {
   editTitle();
   editUrl();
   searched();
+  showRead();
+  showUnread();
+  sorted();
 };
+
+function showRead(){
+  $('.read-btn').on('click', function(){
+    $('.link').hide();
+    $('.read-true').show();
+  })
+}
+
+function showUnread(){
+  $('.unread-btn').on('click', function(){
+    $('.link').hide();
+    $('.read-false').show();
+  })
+}
+
+function sorted(){
+  $(".sort-btn").on("click", function() {
+    console.log(this)
+      var $sort = this;
+      var $links = $('#link-listing');
+      var $link = $(".link");
+
+      $link.sort(function(a, b) {
+          var first = $(a).find('.title-editable').text().toLowerCase();
+          var second = $(b).find('.title-editable').text().toLowerCase();
+          if($($sort).hasClass('ascending')) {
+              return (first > second) ? 1 : 0;
+          } else {
+              return (first < second) ? 1 : 0;
+          }
+      });
+      $.each($link, function(index, element) {
+          $links.append(element);
+      });
+  });
+}
 
 function marked(val){
   if(val === 'true') {
