@@ -12,7 +12,7 @@ class ActiveSupport::TestCase
   fixtures :all
   include Capybara::DSL
 
-  def setup
+  # def setup
     Capybara.app = Thoughtbox::Application
-  end
+  # end
 end
