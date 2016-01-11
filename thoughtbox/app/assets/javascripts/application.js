@@ -31,11 +31,14 @@ function getLinks(){
 function renderLinks(link) {
   $('#link-listing').prepend(
     "<li data-id='" + link.id + "'>"
-    + "<h5>Title: " + link.title + "</h5>"
-    + "<h6>URL: " + link.url + "</h6>"
+    + "<h5 contenteditable='true' class='title-editable'>" + link.title + "</h5>"
+    + "<h6 contenteditable='true' class='url-editable'>" + link.url + "</h6>"
     + "<h6>read: " + link.read + "</h6></li>"
   )
-}
+
+  editTitle();
+  editUrl();
+};
 
 function createLink(){
   $('#create-link').on('click', function(){
@@ -62,3 +65,61 @@ function createLink(){
     })
   })
 };
+
+function editTitle(){
+  $('.title-editable').keydown(function(event){
+    if(event.keyCode == 13){
+      var $title = event.currentTarget.textContent
+      var $idea = $(this).closest('li.link')
+      var $id = $(this).closest('li').attr('data-id')
+      var linkParams = {
+        link: {
+          title: $title
+        }
+      }
+
+      $.ajax({
+        type: 'PUT',
+        url: '/api/v1/links/' + $id + '.json',
+        data: linkParams,
+        success: function(link){
+          $(event.target).blur();
+          updateTitle($link, link.title);
+        }
+      })
+    }
+  })
+}
+
+function updateTitle(link, title){
+  $(link).find('.title-editable').html(title);
+}
+
+function editUrl(){
+  $('.url-editable').keydown(function(event){
+    if(event.keyCode == 13){
+      var $url = event.currentTarget.textContent
+      var $link = $(this).closest('li.link')
+      var $id = $(this).closest('li').attr('data-id')
+      var linkParams = {
+        link: {
+          url: $url
+        }
+      }
+
+      $.ajax({
+        type: 'PUT',
+        url: '/api/v1/links/' + $id + '.json',
+        data: linkParams,
+        success: function(link){
+          $(event.target).blur();
+          updateUrl($link, link.body);
+        }
+      })
+    }
+  })
+}
+
+function updateUrl(link, url){
+  $(link).find('.url-editable').html(url);
+}
