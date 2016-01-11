@@ -16,8 +16,6 @@
 
 $(document).ready(function(){
     getLinks();
-    showRead();
-    sorted();
 });
 
 function getLinks(){
@@ -62,20 +60,15 @@ function showUnread(){
 
 function sorted(){
   $(".sort-btn").on("click", function() {
-    console.log(this)
-      var $sort = this;
       var $links = $('#link-listing');
       var $link = $(".link");
 
       $link.sort(function(a, b) {
           var first = $(a).find('.title-editable').text().toLowerCase();
           var second = $(b).find('.title-editable').text().toLowerCase();
-          if($($sort).hasClass('ascending')) {
-              return (first > second) ? 1 : 0;
-          } else {
-              return (first < second) ? 1 : 0;
-          }
+          return (second < first) ? 1 : 0;
       });
+
       $.each($link, function(index, element) {
           $links.append(element);
       });
