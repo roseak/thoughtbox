@@ -37,7 +37,6 @@ function renderLinks(link) {
     + "<input class='btn btn-default pull-right' id='read-" + link.read + "-button' type='button' name='submit' value='" + marked(link.read) + "'>"
   )
 
-
   readButtons(link)
   editTitle();
   editUrl();
@@ -57,7 +56,6 @@ function readButtons(link){
     var $id = link.id
     var $original = link.read
     var $read = opposite(link.read)
-    console.log($read)
     var $link = link
     var linkParams = {
       link: {
@@ -77,18 +75,12 @@ function readButtons(link){
       type: 'PUT',
       url: '/api/v1/links/' + $id + '.json',
       data: linkParams,
-      success: function(link){
-        updateMarked($link, link.read, $original);
+      success: function(links){
+        getLinks();
       },
     });
   });
 };
-
-function updateMarked(link, val, original){
-  result = marked(val);
-  console.log(result)
-  $(link).find('#read-' + original + '-button').html(result);
-}
 
 function createLink(){
   $('#create-link').on('click', function(){
