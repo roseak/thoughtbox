@@ -1,17 +1,20 @@
-<%= link_to "Logout", '/logout', method: :delete %>
+<%= render 'layouts/navbar' %>
 
-<h1>ThoughtBox</h1>
-<h3>Add a new link here:</h3>
-<div id="create-link">
-  <%= form_for @link, url: links_path do |f| %>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <%= f.label :url %>
-    <%= f.text_field :url %>
-    <%= f.submit "Submit" %>
-  <% end %>
-</div>
+<div class="container">
+  <div class="row">
+    <div class="col m8 offset-m2">
+      <h3 class="center">Add a new link here:</h3>
+      <%= form_for @link, url: links_path do |f| %>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+        <%= f.label :url %>
+        <%= f.text_field :url %>
+        <%= f.submit "Submit" %>
+      <% end %>
+    </div>
+  </div>
 
-<div>
-  <ul id="link-listing"></ul>
+  <div>
+    <ul id="link-listing"></ul>
+  </div>
 </div>

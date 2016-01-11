@@ -38,6 +38,7 @@ function renderLinks(link) {
 
   editTitle();
   editUrl();
+  searched();
 };
 
 function createLink(){
@@ -122,4 +123,17 @@ function editUrl(){
 
 function updateUrl(link, url){
   $(link).find('.url-editable').html(url);
+}
+
+function searched(){
+  $('#filter').keyup(function(){
+    var filter = $(this).val();
+    $('#link-listing li').each(function(){
+      if ($(this).text().search(new RegExp(filter, 'i')) < 0) {
+        $(this).fadeOut();
+      } else {
+        $(this).show();
+      }
+    });
+  });
 }
