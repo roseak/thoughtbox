@@ -5,10 +5,6 @@ class Api::V1::LinksController < ApplicationController
     respond_with current_user.links
   end
 
-  # def create
-  #   respond_with current_user.links.create(user_link_params), location: nil
-  # end
-
   def update
     @link = current_user.links.update(params[:id], link_params)
     respond_with @link, json: @link
