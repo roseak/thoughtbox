@@ -29,10 +29,9 @@ function getLinks(){
 function renderLinks(link) {
   $('#link-listing').prepend(
     "<li class='read-" + link.read  + " link' data-id='" + link.id + "'>"
-    + "<h5 contenteditable='true' class='title-editable read-" + link.read + "'>" + link.title + "</h5>"
+    + "<h5 contenteditable='true' class='title-editable'>" + link.title + "</h5>"
     + "<h6 contenteditable='true' class='url-editable'>" + link.url + "</h6>"
-    + "<h6>read: " + link.read + "</h6></li>"
-    + "<input class='btn btn-default pull-right' id='read-" + link.read + "-button' type='button' name='submit' value='" + marked(link.read) + "'>"
+    + "<input class='btn btn-default pull-right' id='read-" + link.read + "-button' type='button' name='submit' value='" + marked(link.read) + "'></li>"
   )
 
   readButtons(link)
@@ -46,40 +45,41 @@ function renderLinks(link) {
 
 function showRead(){
   $('.read-btn').on('click', function(){
-    $('.link').hide();
+    $('.read-false').hide();
+    $('.read-f').hide();
     $('.read-true').show();
   })
 }
 
 function showUnread(){
   $('.unread-btn').on('click', function(){
-    $('.link').hide();
+    $('.read-true').hide();
+    $('.read-f').show();
     $('.read-false').show();
   })
 }
 
 function sorted(){
-  $(".sort-btn").on("click", function() {
-      var $links = $('#link-listing');
-      var $link = $(".link");
+  $('.sort-btn').on('click', function() {
+    var $link = $('.link');
 
-      $link.sort(function(a, b) {
-          var first = $(a).find('.title-editable').text().toLowerCase();
-          var second = $(b).find('.title-editable').text().toLowerCase();
-          return (second < first) ? 1 : 0;
-      });
+    $link.sort(function(one, two) {
+      var first = $(one).find('.title-editable').text().toLowerCase();
+      var second = $(two).find('.title-editable').text().toLowerCase();
+      return (first < second) ? 1 : 0;
+    });
 
-      $.each($link, function(index, element) {
-          $links.append(element);
-      });
+    $.each($link, function(index, element) {
+      $('#link-listing').prepend(element);
+    });
   });
 }
 
 function marked(val){
   if(val === 'true') {
-    return "Mark as Unread";
+    return 'Mark as Unread';
   } else {
-    return "Mark as Read";
+    return 'Mark as Read';
   };
 };
 
@@ -107,37 +107,12 @@ function readButtons(link){
       type: 'PUT',
       url: '/api/v1/links/' + $id + '.json',
       data: linkParams,
-      success: function(links){
-        getLinks();
+      success: function(link){
+        $("li[data-id=" + $id + "]").remove()
+        renderLinks(link);
       },
     });
   });
-};
-
-function createLink(){
-  $('#create-link').on('click', function(){
-    var linkTitle  = $('#link-title').val()
-    var linkUrl   = $('#link-url').val()
-    var linkParams = {
-      link: {
-        title: linkTitle,
-        url: linkUrl
-      }
-    }
-
-    $('#link-title').val('')
-    $('#link-url').val('')
-
-    $.ajax({
-      type: 'POST',
-      cache: false,
-      url:  '/api/v1/links.json',
-      data: linkParams,
-      success: function(link){
-        renderLinks(link)
-      }
-    })
-  })
 };
 
 function editTitle(){
@@ -187,7 +162,7 @@ function editUrl(){
         data: linkParams,
         success: function(link){
           $(event.target).blur();
-          updateUrl($link, link.body);
+          updateUrl($link, link.url);
         }
       })
     }
