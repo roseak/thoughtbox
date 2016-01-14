@@ -9,17 +9,19 @@
         <%= f.text_field :title %>
         <%= f.label :url %>
         <%= f.text_field :url %>
-        <%= f.submit "Submit" %>
+        <%= f.submit "Submit", class: "btn" %>
       <% end %>
-    </div>
-  </div>
-  <div>
-    <a class="btn sort-btn">Sort</a>
-    <a class="btn read-btn">Read</a>
-    <a class="btn unread-btn">Unread</a>
-  </div>
 
-  <div>
-    <ul id="link-listing"></ul>
+      <div class="row center extra-btns">
+        <a class="btn sort-btn">Sort</a>
+        <a class="btn read-btn">Read</a>
+        <a class="btn unread-btn">Unread</a>
+      </div>
+
+      <div class="row">
+        <ul id="link-listing"></ul>
+      </div>
+
+    </div>
   </div>
 </div>

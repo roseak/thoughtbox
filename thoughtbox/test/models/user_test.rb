@@ -10,4 +10,8 @@ class UserTest < ActiveSupport::TestCase
   test "a user has an email" do
     assert_equal "rose1@gmail.com", user.email
   end
+
+  test "a user is valid with valid attributes" do
+    assert user.valid?
+  end
 end

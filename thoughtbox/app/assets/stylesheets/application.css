@@ -17,3 +17,38 @@
  .read-true {
    text-decoration: line-through;
  }
+
+ .title-editable {
+  outline-width: thin;
+  outline-color: #1a237e;
+  padding: .3rem;
+  font-size: 20px;
+}
+
+.url-editable {
+  outline-width: thin;
+  outline-color: #1a237e;
+  padding: .1rem;
+  padding-left: .2rem;
+}
+
+.url-editable:hover {
+  color: #1e88e5;
+}
+
+.title-editable:hover {
+  color: #1e88e5;
+}
+
+#brand-logo {
+  padding-left: 1.5rem;
+  font-size: 30px;
+}
+
+#live-search {
+  padding-right: 70px;
+}
+
+.extra-btns {
+  padding: 1rem;
+}

@@ -5,7 +5,7 @@ class UserCanSignUpTest < ActionDispatch::IntegrationTest
     visit root_path
     assert_equal "/login", current_path
     assert_equal 200, page.status_code
-    assert page.has_content?("sign up")
+    assert page.has_content?("Sign up")
 
     click_on "here"
     assert_equal "/users/new", current_path

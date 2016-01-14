@@ -1,11 +1,13 @@
-<h1>Login to ThoughtBox</h1>
+<div class="container">
+  <h1 class="center">Login to ThoughtBox</h1>
 
-<%= form_for :session, url: login_path do |f| %>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
-  <%= f.label :password %>
-  <%= f.text_field :password %>
-  <%= f.submit "Login" %>
-<% end %>
+  <%= form_for :session, url: login_path do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+    <%= f.submit "Login", class: "btn" %>
+  <% end %>
 
-<h3>New to ThoughtBox?  Sign up <%= link_to "here", new_user_path %></h3>
+  <h3>New to ThoughtBox?  Sign up <%= link_to "here", new_user_path %></h3>
+</div>
