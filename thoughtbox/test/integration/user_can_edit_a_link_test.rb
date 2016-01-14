@@ -1,12 +1,26 @@
 require "test_helper"
 
-class UserCanEditAnIdeaTest < ActionDispatch::IntegrationTest
+class UserCanEditALinkTest < ActionDispatch::IntegrationTest
+  def setup
+    super
+    use_javascript
+  end
+
   def teardown
-    Capybara.reset_sessions!
+    super
+    reset_driver
   end
 
   test "user can edit a link title" do
-    visit ""
+    skip
+    user = User.create(email: "rose@gmail.com", password: "password")
+    Link.create(title: "pizza", url: "http://pizza.com", user_id: user.id)
+
+    visit login_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: "password"
+    click_on "Login"
+
     title = first(:xpath, "//h5[@contenteditable='true']")
     title.set("pizza yum")
     title.native.send_keys(:return)
@@ -14,10 +28,18 @@ class UserCanEditAnIdeaTest < ActionDispatch::IntegrationTest
   end
 
   test "user can edit a link url" do
-    visit "/"
-    body = first(:xpath, "//p[@contenteditable='true']")
-    body.set("almost done")
-    body.native.send_keys(:return)
-    assert page.has_content?("almost done")
+    skip
+    user = User.create(email: "rose@gmail.com", password: "password")
+    Link.create(title: "pizza", url: "http://pizza.com", user_id: user.id)
+
+    visit login_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: "password"
+    click_on "Login"
+
+    url = first(:xpath, "//p[@contenteditable='true']")
+    url.set("http://www.almostdone.com")
+    url.native.send_keys(:return)
+    assert page.has_content?("http://www.almostdone.com")
   end
 end
